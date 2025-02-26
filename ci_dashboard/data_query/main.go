@@ -120,7 +120,7 @@ func main() {
 func readConfig() (string, string, string, string) {
 	repoOwner := os.Getenv("GITHUB_REPOSITORY_OWNER")
 	repoName := os.Getenv("GITHUB_REPOSITORY_NAME")
-	githubToken := os.Getenv("GITHUB_TOKEN")
+	githubToken := os.Getenv("GH_TOKEN")
 	targetBranch := os.Getenv("TARGET_BRANCH")
 
 	if repoOwner == "" {
@@ -132,7 +132,7 @@ func readConfig() (string, string, string, string) {
 	}
 
 	if githubToken == "" {
-		log.Fatal("Missing required environment variables: GITHUB_TOKEN")
+		log.Fatal("Missing required environment variables: GH_TOKEN")
 	}
 
 	if targetBranch == "" {
