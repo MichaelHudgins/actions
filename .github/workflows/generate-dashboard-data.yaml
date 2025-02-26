@@ -4,7 +4,8 @@ name: Generate dashboard data
 on:
   pull_request:
     paths:
-      - ci_dashboard/data_query
+      - ci_dashboard/data_query/**
+      - .github/workflows/generate-dashboard-data.yaml
     branches:
       - main
 jobs:
