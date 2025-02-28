@@ -41,17 +41,33 @@ jobs:
         with:
           name: workflow-run-main
           path: ci_dashboard/data_query/workflow_runs.json
+  # generate-angular:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+  #   - uses: actions/setup-node@v4
+  #     with:
+  #       node-version: 20
+  #       cache: 'npm'
+  #       cache-dependency-path: ci_dashboard/frontend/package-lock.json
+  #   - name: Install dependencies
+  #     run: npm ci
+  #   - name: Run Tests
+  #     run: npm test
+  #   - name: Build app
+  #     run: npm run build
+
   upload-site:
-    # if: github.event_name == 'schedule'
+    if: github.event_name == 'schedule'
     needs: generate-json
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
       pages: write # to deploy to Pages
       id-token: write # to verify the deployment originates from an appropriate source
     # Deploy to the github-pages environment
-    # environment:
-    #   name: github-pages
-    #   url: ${{ steps.deployment.outputs.page_url }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     # Specify runner + deployment step
     runs-on: ubuntu-latest
     steps:
@@ -69,13 +85,13 @@ jobs:
           cp data/* final_site/data/
           ls -la final_site/data/
       - name: Upload static files as artifact
-        id: deployment
+        id: upload
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # or specific "vX.X.X" version tag for this action ratchet:actions/upload-pages-artifact@v3
         with:
           path: final_site/
-    # - name: Deploy to GitHub Pages
-    #   id: deployment
-    #   uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # ratchet:actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # ratchet:actions/deploy-pages@v4
 
 
 

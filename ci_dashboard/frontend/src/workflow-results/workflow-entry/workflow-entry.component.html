@@ -1,0 +1,66 @@
+<!-- Copyright 2025 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+
+<mat-accordion>
+    <mat-expansion-panel [expanded]="expandedState()">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <!-- The latest overall status is at index 1.  The text "Overall" is at index 0 -->
+                @if (workData().statusInfo && workData().statusInfo!.length > 1) {
+                <mat-icon class="{{workData().statusInfo![1].status}}"
+                    fontIcon="{{workData().statusInfo![1].icon}}"></mat-icon>
+                }
+
+                <a href="{{ workData().workflow_url }}" class="status-text" target="_blank">{{ workData().workflow_name
+                    }}</a>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-grid-list cols="15" rowHeight="40px">
+            @for (info of workData().statusInfo; track info) {
+
+            @if (info.isTitle) {
+            <mat-grid-tile [colspan]="5">
+                <div class="left-align-forced">
+                    @if (info.url.length > 0) {
+                    <a href="{{info.url}}" class="status-text" target="_blank">{{info.name}}</a>
+                    }
+                    @else {
+                    {{info.name}}
+                    }
+                </div>
+
+            </mat-grid-tile>
+            } @else {
+            <mat-grid-tile>
+                <!-- {{info.conclusion}} -->
+                @if (info.url.length > 0){
+                <a href="{{info.url}}" target="_blank">
+                    <mat-icon matTooltip="Job ran on {{info.date}} with status {{info.status}}" class="{{info.status}}"
+                        fontIcon="{{info.icon}}"></mat-icon>
+                </a>
+                } @else {
+                <mat-icon class="{{info.status}}" fontIcon="{{info.icon}}"></mat-icon>
+                }
+            </mat-grid-tile>
+            }
+
+            }
+            <!-- @for (tile of tiles; track tile) {
+          <mat-grid-tile [colspan]="tile.cols" [rowspan]="tile.rows"
+            [style.background]="tile.color">{{tile.text}}</mat-grid-tile>
+          } -->
+        </mat-grid-list>
+    </mat-expansion-panel>
+
+</mat-accordion>
