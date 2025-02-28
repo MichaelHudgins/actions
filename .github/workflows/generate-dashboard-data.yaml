@@ -1,7 +1,8 @@
 # Workflow to continuously regenerate the data for the ci dashboard
 name: Generate dashboard data
-# Run on pull_request that is labeled as "optional_ci_tpu" or workflow dispatch
 on:
+  schedule:
+    - cron: '*/10 * * * *'
   pull_request:
     paths:
       - ci_dashboard/data_query/**
