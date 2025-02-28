@@ -69,6 +69,8 @@ func main() {
 	tc := oauth2.NewClient(ctx, ts)
 	client := github.NewClient(tc)
 
+	log.Printf("Getting data for Org:%s Repo:%s\n", repoOwner, repoName)
+
 	// 3. Load previous data from file, if it exists.
 	// previousData := loadPreviousData()
 
@@ -118,13 +120,13 @@ func main() {
 
 // readConfig reads configuration from environment variables.
 func readConfig() (string, string, string, string) {
-	repoOwner := os.Getenv("GITHUB_REPOSITORY_OWNER")
+	repoOwner := os.Getenv("GITHUB_REPOSITORY_ORG")
 	repoName := os.Getenv("GITHUB_REPOSITORY_NAME")
 	githubToken := os.Getenv("GH_TOKEN")
 	targetBranch := os.Getenv("TARGET_BRANCH")
 
 	if repoOwner == "" {
-		log.Fatal("Missing required environment variables: GITHUB_REPOSITORY_OWNER")
+		log.Fatal("Missing required environment variables: GITHUB_REPOSITORY_ORG")
 	}
 
 	if repoName == "" {

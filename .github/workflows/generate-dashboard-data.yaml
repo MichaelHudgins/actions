@@ -32,7 +32,7 @@ jobs:
           restore-keys: ubuntu-latest-go-
       - name: Run the data generation
         env:
-          GITHUB_REPOSITORY_OWNER: jax-ml
+          GITHUB_REPOSITORY_ORG: jax-ml
           GITHUB_REPOSITORY_NAME: jax
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
