@@ -24,4 +24,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class AppComponent {
   title = 'ci-dashboard';
+
+  ngOnInit(): void {
+  }
 }

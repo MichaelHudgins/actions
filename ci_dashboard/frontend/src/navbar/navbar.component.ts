@@ -12,17 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule, DatePipe } from '@angular/common';
+
+import { WorkflowService } from '../workflow-data/workflow.service';
+import { Observable } from 'rxjs';
+import { WorkflowBundle} from '../workflow-data/workflow-data';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MatToolbarModule,
-    MatButtonModule],
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatButtonModule,
+    DatePipe,
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
+  bundle$: Observable<WorkflowBundle>;
+  constructor(private workflow_service: WorkflowService) {
+    this.bundle$ = workflow_service.getWorklowBundle();
+  }
 }

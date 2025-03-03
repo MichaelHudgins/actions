@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { Component, input } from '@angular/core';
-import { WorkflowData } from '../workflow-data';
+import { WorkflowData } from '../workflow-data/workflow-data';
 import { CommonModule } from '@angular/common';
 
 import { MatExpansionModule } from '@angular/material/expansion';

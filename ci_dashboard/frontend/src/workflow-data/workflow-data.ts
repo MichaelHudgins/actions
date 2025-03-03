@@ -105,3 +105,9 @@ export interface WorkflowData {
 export interface WorkflowRuns {
     [workflowId: string]: WorkflowData;
 }
+
+export interface WorkflowBundle {
+    dateRetreived: number;
+    keyWorkflowJobs: WorkflowData[];
+    otherWorkflowJobs: WorkflowData[];
+}

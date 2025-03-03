@@ -11,32 +11,33 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
-<div *ngIf="loading">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
-
-<div *ngIf="error">Error: {{ error }}</div>
-<div *ngIf="!loading && !error && keyWorkFlowJobs">
+@if(bundle$ | async; as bundle){
+  <!--  -->
+  @if(bundle.keyWorkflowJobs.length > 0){
   <mat-card>
     <mat-card-title class="title-adjust">Key monitoring Runs</mat-card-title>
     <mat-card-content>
-      @for (workData of keyWorkFlowJobs; track workData) {
+      @for (workData of bundle.keyWorkflowJobs; track workData) {
       @if(shouldShowWorkflow(workData)){
       <app-workflow-entry [expandedState]="false" [workData]="workData"></app-workflow-entry>
       }
       }
     </mat-card-content>
   </mat-card>
-</div>
-<div *ngIf="!loading && !error && otherWorkFlowData">
+  }
+  @if(bundle.otherWorkflowJobs.length > 0){
+
   <mat-card>
     <mat-card-title class="title-adjust">Other Workflow Runs</mat-card-title>
     <mat-card-content>
-      @for (workData of otherWorkFlowData; track workData) {
+      @for (workData of bundle.otherWorkflowJobs; track workData) {
       @if(shouldShowWorkflow(workData)){
       <app-workflow-entry [expandedState]="false" [workData]="workData"></app-workflow-entry>
       }
       }
     </mat-card-content>
   </mat-card>
-</div>
+  }
+} @else{
+<mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+}

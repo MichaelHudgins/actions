@@ -15,7 +15,12 @@ limitations under the License. -->
 <mat-toolbar color="primary">
     <span>JAX Actions Dashboard</span>
     <div class="spacer"></div>
-
+    @if(bundle$ | async; as bundle){
+      <p class="loading-text">Data last fetched {{bundle.dateRetreived | date:'shortTime' }}</p>
+    }
+    @else {
+      <p class="loading-text">Data loading...</p>
+    }
     <a mat-button routerLink="/">Home</a>
     <!-- <a mat-button>About</a>
   <a mat-button>Contact</a> -->
