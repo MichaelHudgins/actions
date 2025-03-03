@@ -94,6 +94,7 @@ jobs:
         uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # ratchet:actions/download-artifact@v4
         with:
           name: frontend
+          path: frontend
       - name: Arrange site
         run: |
           ls -la
