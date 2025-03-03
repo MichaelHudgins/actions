@@ -64,11 +64,12 @@ jobs:
       working-directory: ci_dashboard/frontend
       run: |
         mv dist/ci-dashboard/3rdpartylicenses.txt dist/ci-dashboard/browser
+        ls -la dist/ci-dashboard
     - name: Upload artifacts
       uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # ratchet:actions/upload-artifact@v4
       with:
         name: frontend
-        path: ci_dashboard/frontend/dist/ci-dashboard/3rdpartylicenses.txt dist/ci-dashboard/browser
+        path: ci_dashboard/frontend/dist/ci-dashboard/browser
   upload-site:
     if: github.event_name == 'schedule'
     needs: generate-json
