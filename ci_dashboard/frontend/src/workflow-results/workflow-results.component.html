@@ -19,7 +19,7 @@ limitations under the License. -->
     <mat-card-content>
       @for (workData of bundle.keyWorkflowJobs; track workData) {
       @if(shouldShowWorkflow(workData)){
-      <app-workflow-entry [expandedState]="false" [workData]="workData"></app-workflow-entry>
+      <app-workflow-entry [workData]="workData"></app-workflow-entry>
       }
       }
     </mat-card-content>
@@ -32,7 +32,7 @@ limitations under the License. -->
     <mat-card-content>
       @for (workData of bundle.otherWorkflowJobs; track workData) {
       @if(shouldShowWorkflow(workData)){
-      <app-workflow-entry [expandedState]="false" [workData]="workData"></app-workflow-entry>
+      <app-workflow-entry [workData]="workData"></app-workflow-entry>
       }
       }
     </mat-card-content>

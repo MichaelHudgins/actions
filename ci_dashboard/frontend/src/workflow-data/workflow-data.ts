@@ -100,6 +100,7 @@ export interface WorkflowData {
     runs: WorkflowRunData[] | null;
     last_updated_at: string;
     statusInfo: StatusInfo[] | null;
+    expanded: boolean | null;
 }
 
 export interface WorkflowRuns {

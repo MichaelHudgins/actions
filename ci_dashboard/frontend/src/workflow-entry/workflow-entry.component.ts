@@ -35,6 +35,4 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class WorkflowEntryComponent {
   workData = input.required<WorkflowData>();
 
-  expandedState = input<boolean>(false)
-
 }

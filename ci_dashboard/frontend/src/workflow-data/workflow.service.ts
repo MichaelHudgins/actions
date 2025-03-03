@@ -20,14 +20,19 @@ export class WorkflowService implements OnDestroy {
   ];
 
   private bundle$: Observable<WorkflowBundle>;
+  private previousBundle: WorkflowBundle;
 
   private stopPolling = new Subject();
 
   constructor(private http: HttpClient) {
 
-
-    // Pull data every 2.5 minutes
-    this.bundle$ = timer(1, 1000 * 60 * 1.0).pipe(
+    this.previousBundle = {
+      dateRetreived: 0,
+      keyWorkflowJobs: [],
+      otherWorkflowJobs: [],
+    }
+    // Pull data every 4 minutes, data refreshes every 10 minutes
+    this.bundle$ = timer(1, 1000 * 60 * 4).pipe(
       switchMap(() => http.get(this.dataLocation).pipe(map(data => {
         console.log("Retreived new data")
         // TODO: Merge results at the top level to prevent flickering / opening and closing of the expanion panels
@@ -37,10 +42,25 @@ export class WorkflowService implements OnDestroy {
           otherWorkflowJobs: [],
         }
         Object.entries(data).map(([key, value]) => {
+
+          // If there was previous data we need to persist the expanded state or the screen flickers
+          let expanded = new Set<number>();
+          this.previousBundle.keyWorkflowJobs.forEach(j => {
+            if(j.expanded!){
+              console.log("Workflow %s was already expanded",j.workflow_name)
+              expanded.add(j.workflow_id)
+            }
+          });
+
           const workData = value as WorkflowData
           if (workData.runs != null) {
             let wd = value as WorkflowData; // Type assertion to Workflow
             wd.statusInfo = this.statusInfoForWorkflow(wd);
+            if (expanded.has(wd.workflow_id)) {
+              wd.expanded = true;
+            } else {
+              wd.expanded = false;
+            }
             if (this.keyWorkflowNames.includes(wd.workflow_name)) {
               wb.keyWorkflowJobs.push(wd);
             } else {
@@ -48,6 +68,7 @@ export class WorkflowService implements OnDestroy {
             }
           }
         });
+        this.previousBundle = wb;
         return wb
       }))),
       retry(),

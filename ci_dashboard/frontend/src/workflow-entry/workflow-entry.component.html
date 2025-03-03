@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License. -->
 
 <mat-accordion>
-    <mat-expansion-panel [expanded]="expandedState()">
+    <mat-expansion-panel [expanded]="workData().expanded" (opened)="workData().expanded = true" (closed)="workData().expanded = false">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <!-- The latest overall status is at index 1.  The text "Overall" is at index 0 -->
