@@ -26,14 +26,14 @@ limitations under the License. -->
                     }}</a>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-grid-list cols="15" rowHeight="40px">
+        <mat-grid-list cols="21" rowHeight="40px" gutterSize="15">
             @for (info of workData().statusInfo; track info) {
 
             @if (info.isTitle) {
-            <mat-grid-tile [colspan]="5">
+            <mat-grid-tile [colspan]="6">
                 <div class="left-align-forced">
                     @if (info.url.length > 0) {
-                    <a href="{{info.url}}" class="status-text" target="_blank">{{info.name}}</a>
+                    <a href="{{info.url}}" class="status-text" title="{{info.name}}"  target="_blank">{{info.name | truncate : 125}}</a>
                     }
                     @else {
                     {{info.name}}
