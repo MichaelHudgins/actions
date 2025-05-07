@@ -58,10 +58,7 @@ if [ -z "$GITHUB_TOKEN" ]; then
 fi
 
 
-echo $FILE_PATTERNS
-
-exit 1
-
+echo "Patterns to match against $FILE_PATTERNS"
 
 # Construct GitHub API URL
 OWNER_REPO="$GITHUB_REPOSITORY"
