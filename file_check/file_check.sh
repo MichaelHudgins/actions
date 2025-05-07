@@ -58,7 +58,7 @@ if [ -z "$GITHUB_TOKEN" ]; then
 fi
 
 
-echo "Patterns to match against $FILE_PATTERNS"
+echo "Patterns to match against \n$FILE_PATTERNS"
 
 # Construct GitHub API URL
 OWNER_REPO="$GITHUB_REPOSITORY"
@@ -119,6 +119,8 @@ if [ -z "$CHANGED_FILES_LIST" ]; then
   echo "No files found changed in PR #$PR_NUMBER or an issue occurred retrieving them."
 fi
 
+echo "Files modified by PR: $CHANGED_FILES_LIST"
+
 echo "----------------------------------------------------"
 echo "Processing patterns against changed files in PR #$PR_NUMBER:"
 echo "----------------------------------------------------"
@@ -128,6 +130,7 @@ echo "----------------------------------------------------"
 at_least_one_match_found=false
 
 for pattern in "$@"; do
+  echo "Checking pattern $pattern"
   found_match_for_current_pattern=false # Reset flag for each new pattern
 
   # Read the list of changed files line by line (from the string variable)
