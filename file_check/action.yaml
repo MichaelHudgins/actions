@@ -26,5 +26,6 @@ runs:
     env:
       FILE_PATTERNS: ${{ inputs.patterns }}
       GITHUB_PULL_REQUEST_NUMBER: ${{ github.event.number }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     run: |
       "$GITHUB_ACTION_PATH/file_check.sh"
