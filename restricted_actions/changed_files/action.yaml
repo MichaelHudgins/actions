@@ -42,14 +42,16 @@ runs:
 # We only permit this to run with contents: read and from a PR
   - name: Verify Restrictions
     shell: bash
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
     run: |
       echo "Verifying permissions of the github token are as restricted as expected"
       # Use curl to get the token scopes from the GitHub API
-      scopes=$(curl -s -I -H "Authorization: token ${github.token}" https://api.github.com/ | grep "X-OAuth-Scopes" | awk '{print $2}')
+      scopes=$(curl -s -I -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/ | grep "X-OAuth-Scopes" | awk '{print $2}')
 
       # Check if the request was successful
       if [ -z "${scopes}" ]; then
-        echo "Error: Unable to retrieve token scopes. Please check your token and try again."
+        echo "Error: Unable to retrieve token scopes."
         exit 1
       fi
       # Print the token scopes
