@@ -1,0 +1,30 @@
+# A workflow to test waiting for remote connections to the runner, when an error occurs.
+name: Connection Test - On Error
+on:
+  pull_request:
+    paths:
+    - file_check
+    - .github/workflows/file-check-tests.yaml
+    branches:
+      - main
+defaults:
+  run:
+    shell: bash
+# Cancel any previous iterations if a new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test-valid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
+      - name: Test Valid Case 1
+        uses: ./file_check/
+        with:
+            patterns: |
+                *.yaml
+                file_check/*
+
+            
