@@ -1,0 +1,26 @@
+# A workflow to test our tj-checkfiles limitations
+name: Checkfiles Limitaitons
+# Run on pull_request that is labeled as "optional_ci_tpu" or workflow dispatch
+on:
+  pull_request:
+    paths:
+    - restricted_actions/changed_files
+    - .github/workflows/check_files_tests.yaml
+    branches:
+      - main
+defaults:
+  run:
+    shell: bash
+# Cancel any previous iterations if a new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  correct-permissions-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
+      # Verify correct permissions succeed
+      - name: Check Files
+        uses: ./restricted_actions/changed_files
