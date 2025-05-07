@@ -1,10 +1,7 @@
 # A workflow to test waiting for remote connections to the runner, when an error occurs.
-name: Connection Test - On Error
+name: Test File Check Cases
 on:
   pull_request:
-    paths:
-    - file_check
-    - .github/workflows/file-check-tests.yaml
     branches:
       - main
 defaults:

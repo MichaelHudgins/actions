@@ -25,5 +25,6 @@ runs:
     shell: bash
     env:
       FILE_PATTERNS: ${{ inputs.patterns }}
+      GITHUB_PULL_REQUEST_NUMBER: ${{ github.event.number }}
     run: |
       "$GITHUB_ACTION_PATH/file_check.sh"
