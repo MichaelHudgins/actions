@@ -58,7 +58,7 @@ if [ -z "$GITHUB_TOKEN" ]; then
 fi
 
 
-echo "Patterns to match against \n$FILE_PATTERNS"
+echo "Patterns to match against $FILE_PATTERNS"
 
 # Construct GitHub API URL
 OWNER_REPO="$GITHUB_REPOSITORY"
@@ -99,6 +99,8 @@ if [ "$http_code" -ne 200 ]; then
     echo "Response body: $json_body"
     exit 1
 fi
+
+python3 -m pip freeze
 
 # Parse the JSON response to get a list of filenames
 # Use set -o pipefail to ensure errors in the pipeline are caught
