@@ -12,8 +12,10 @@ EXPECTED_SCOPE="contents:read"
 # Make a request to a simple GitHub API endpoint.
 # Using /zen as it's lightweight and should return auth-related headers
 # Capture stderr to check curl command output for errors, but don't print it directly unless necessary
-API_RESPONSE_HEADERS=$(curl -s -I -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/zen 2>&1)
+API_RESPONSE_HEADERS=$(curl -s -I -H "Authorization: token $GITHUB_TOKEN" https://api.github.com 2>&1)
 CURL_EXIT_CODE=$?
+
+echo "$API_RESPONSE_HEADERS"
 
 # Check if curl command itself failed (e.g., network issue, DNS resolution)
 if [ $CURL_EXIT_CODE -ne 0 ]; then
