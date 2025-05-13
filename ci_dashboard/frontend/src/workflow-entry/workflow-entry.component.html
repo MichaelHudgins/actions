@@ -46,7 +46,7 @@ limitations under the License. -->
                 <!-- {{info.conclusion}} -->
                 @if (info.url.length > 0){
                 <a href="{{info.url}}" target="_blank">
-                    <mat-icon matTooltip="Job ran on {{info.date}} with status {{info.status}}" class="{{info.status}}"
+                    <mat-icon matTooltip="Job ran on {{info.date | date:'medium'}} with status {{info.status}}" class="{{info.status}}"
                         fontIcon="{{info.icon}}"></mat-icon>
                 </a>
                 } @else {
