@@ -23,7 +23,7 @@ jobs:
             - name: Check if path changed
               uses: ./check_files/
               with:
-                file-patterns: "*.txt file.md"
+                file-patterns: "*.txt file.md check_files/**"
             - name: Check suspicious cases
               uses: ./check_files/
               with:

@@ -55,6 +55,7 @@ filter_files_by_globs() {
   while IFS= read -r file; do
     # Loop through each glob pattern.
     for glob in "${globs[@]}"; do
+      echo "Evaluating glob $glob"
       # Use bash's pattern matching.
       if [[ "$file" == "$glob" ]]; then
         matched_files+=("$file")
