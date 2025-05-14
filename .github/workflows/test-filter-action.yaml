@@ -21,7 +21,10 @@ jobs:
               with:
                 fetch-depth: 2
             - name: Check if path changed
-              uses: ./ci_connection/
+              uses: ./check_files/
               with:
                 file-patterns: "*.txt file.md"
-                
+            - name: Check suspicious cases
+              uses: ./check_files/
+              with:
+                file-patterns: "$(whoami) ${whoami}"
