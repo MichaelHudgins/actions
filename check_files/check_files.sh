@@ -51,11 +51,18 @@ filter_files_by_globs() {
     exit 1
   fi
 
+  echo "Matching against globs:"
+  for glob in "${globs[@]}"; do
+    echo "  $glob"
+  done
+
   # Loop through each file.
   while IFS= read -r file; do
+    # Useful for debugging to just print all of these
+    echo "File $file was changed"
+
     # Loop through each glob pattern.
     for glob in "${globs[@]}"; do
-      echo "Evaluating glob $glob"
       # Use bash's pattern matching.
       if [[ "$file" == "$glob" ]]; then
         matched_files+=("$file")
