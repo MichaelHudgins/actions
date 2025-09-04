@@ -1,0 +1,30 @@
+# A workflow to test waiting for remote connections to the runner.
+name:  Test Filtering Actions
+# Run on pull_request that is labeled as "optional_ci_tpu" or workflow dispatch
+on:
+  pull_request:
+    branches:
+      - main
+defaults:
+  run:
+    shell: bash
+# Cancel any previous iterations if a new commit is pushed
+permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+    test-modified-files:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+              with:
+                fetch-depth: 2
+            - name: Check if path changed
+              uses: ./check_files/
+              with:
+                file-patterns: "*.txt file.md check_files/**"
+            - name: Check suspicious cases
+              uses: ./check_files/
+              with:
+                file-patterns: "$(whoami) ${whoami}"
